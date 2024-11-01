@@ -1,0 +1,1 @@
+#root{max-width:1280px;margin:0 auto;padding:2rem;text-align:center;font-family:sans-serif;color:#2f4f4f}button{padding:.5rem 1rem;margin:.5rem;border:1px solid darkslategrey;border-radius:4px;background-color:#fff;color:#2f4f4f;font-size:1rem;cursor:pointer}button:hover{background-color:#2f4f4f;color:#fff}button:disabled{background-color:#d3d3d3;color:#a9a9a9;cursor:not-allowed}
