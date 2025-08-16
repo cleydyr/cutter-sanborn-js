@@ -6,7 +6,7 @@ export interface CutterSanbornTable {
   callNumber: (surname: string, name: string) => number;
 }
 
-export const CutternSanbornTableFactory = {
+export const CutterSanbornTableFactory = {
   createTable: (): CutterSanbornTable => new RedBlackTreeCutterSanbornTable(),
 };
 

@@ -1,1 +1,1 @@
-export { CutternSanbornTableFactory } from "./lib";
+export { CutterSanbornTableFactory } from "./lib";

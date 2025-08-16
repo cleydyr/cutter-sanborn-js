@@ -4,7 +4,7 @@
 
 import { TestCase } from "./util";
 
-import { CutternSanbornTableFactory } from "../src/lib";
+import { CutterSanbornTableFactory } from "../src/lib";
 import { loadTestCasesFromCSV } from "./util";
 import fs from "fs";
 
@@ -12,7 +12,7 @@ const csvContents = fs.readFileSync("test/tests.csv", "utf-8");
 
 const testCases: TestCase[] = loadTestCasesFromCSV(csvContents);
 
-const cutterSanbornTable = CutternSanbornTableFactory.createTable();
+const cutterSanbornTable = CutterSanbornTableFactory.createTable();
 
 test.each(testCases)(
   "callNumber($surname, $name)",
