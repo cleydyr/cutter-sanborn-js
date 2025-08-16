@@ -18,24 +18,24 @@
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://cleydyr.github.io/cutter-sanborn-js/">
+  <meta property="og:url" content="https://cuttersanborn.biblivre.cloud">
   <meta property="og:title" content="Calculadora Cutter-Sanborn Online - Sistema de Numeração para Bibliotecas">
   <meta property="og:description"
     content="Calculadora online gratuita para gerar números Cutter-Sanborn. Ferramenta essencial para bibliotecários e profissionais da informação.">
-  <meta property="og:image" content="https://cleydyr.github.io/cutter-sanborn-js/og-image.png">
+  <meta property="og:image" content="https://cuttersanborn.biblivre.cloudog-image.png">
   <meta property="og:site_name" content="Calculadora Cutter-Sanborn">
   <meta property="og:locale" content="pt_BR">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://cleydyr.github.io/cutter-sanborn-js/">
+  <meta property="twitter:url" content="https://cuttersanborn.biblivre.cloud">
   <meta property="twitter:title" content="Calculadora Cutter-Sanborn Online">
   <meta property="twitter:description"
     content="Calculadora online gratuita para gerar números Cutter-Sanborn. Ferramenta essencial para bibliotecários.">
-  <meta property="twitter:image" content="https://cleydyr.github.io/cutter-sanborn-js/og-image.png">
+  <meta property="twitter:image" content="https://cuttersanborn.biblivre.cloudog-image.png">
 
   <!-- Canonical URL -->
-  <link rel="canonical" href="https://cleydyr.github.io/cutter-sanborn-js/">
+  <link rel="canonical" href="https://cuttersanborn.biblivre.cloud">
 
   <!-- Mobile optimization -->
   <meta name="theme-color" content="#007bff">
@@ -57,7 +57,7 @@
     "@type": "WebApplication",
     "name": "Calculadora Cutter-Sanborn",
     "description": "Calculadora online gratuita para gerar números Cutter-Sanborn utilizados em sistemas de classificação bibliotecária",
-    "url": "https://cleydyr.github.io/cutter-sanborn-js/",
+    "url": "https://cuttersanborn.biblivre.cloud",
     "applicationCategory": "UtilitiesApplication",
     "operatingSystem": "Web Browser",
     "offers": {
@@ -464,7 +464,7 @@
         const sobrenome = sobrenomeInput.value.trim();
         const nome = nomeInput.value.trim();
 
-        if (sobrenome && nome) {
+        if (sobrenome) {
           try {
             const resultado = cutterSanbornTable.callNumber(sobrenome.trim().toLowerCase(), nome.trim().toLowerCase() || " ");
             numeroInput.value = resultado;
