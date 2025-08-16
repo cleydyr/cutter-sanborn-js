@@ -466,7 +466,7 @@
 
         if (sobrenome && nome) {
           try {
-            const resultado = cutterSanbornTable.callNumber(sobrenome, nome);
+            const resultado = cutterSanbornTable.callNumber(sobrenome.trim().toLowerCase(), nome.trim().toLowerCase() || " ");
             numeroInput.value = resultado;
             copyBtn.disabled = false;
           } catch (error) {
