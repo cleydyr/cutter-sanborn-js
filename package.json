@@ -1,6 +1,6 @@
 {
   "name": "cutter-sanborn-js",
-  "version": "1.0.1-SNAPSHOT",
+  "version": "1.1.0",
   "description": "A library to calculate the call number based on the Cutter-Sanborn table",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
