@@ -1,4 +1,5 @@
 dist/tsconfig.tsbuildinfo
+dist/cutter-sanborn.min.js
 *.tsbuildinfo
 jest.config.js
 cutter.csv
@@ -8,3 +9,4 @@ prebuild/*
 transform.ts
 tsconfig.json
 webpack.config.js
+example.html

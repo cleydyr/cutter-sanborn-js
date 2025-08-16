@@ -2,15 +2,44 @@
 
 A library for the Cutter-Sanborn call number system written in Javascript.
 
+## Installation
+
+### NPM
+
+```bash
+npm install cutter-sanborn-js
+```
+
+### CDN
+
+```html
+<script src="https://unpkg.com/cutter-sanborn-js/dist/cutter-sanborn.min.js"></script>
+```
+
 ## Usage
 
-```javascript
-import { CutternSanbornTableFactory } from "cutter-sanborn-js";
+### ES Modules / Node.js
 
-const cutterSanbornTable = CutternSanbornTableFactory.createTable();
+```javascript
+import { CutterSanbornTableFactory } from "cutter-sanborn-js";
+
+const cutterSanbornTable = CutterSanbornTableFactory.createTable();
 
 cutterSanbornTable.callNumber("lentino", "noemia") === 574; // true
 cutterSanbornTable.callNumber("prado", "heloisa") === 896; // true
+```
+
+### Browser (CDN)
+
+```html
+<script src="https://unpkg.com/cutter-sanborn-js/dist/cutter-sanborn.min.js"></script>
+<script>
+  const cutterSanbornTable =
+    CutterSanborn.CutterSanbornTableFactory.createTable();
+
+  console.log(cutterSanbornTable.callNumber("lentino", "noemia")); // 574
+  console.log(cutterSanbornTable.callNumber("prado", "heloisa")); // 896
+</script>
 ```
 
 ## Testing
