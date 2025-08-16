@@ -8,3 +8,4 @@ transform.ts
 tsconfig.json
 webpack.config.js
 example.html
+serve.js

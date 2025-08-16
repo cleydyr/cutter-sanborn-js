@@ -29,7 +29,8 @@
     "build:cdn": "npm run transform && webpack",
     "prepublishOnly": "npm run build && npm run build:cdn && npm test",
     "clean": "rm -rf dist",
-    "prebuild": "npm run clean"
+    "prebuild": "npm run clean",
+    "serve": "node serve.js",
   },
   "keywords": [
     "cutter",
