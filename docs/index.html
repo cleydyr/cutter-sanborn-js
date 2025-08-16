@@ -210,11 +210,13 @@
       display: flex;
       gap: 20px;
       margin-bottom: 30px;
-      align-items: end;
+      align-items: flex-start;
     }
 
     .input-group {
       flex: 1;
+      display: flex;
+      flex-direction: column;
     }
 
     label {
@@ -305,6 +307,96 @@
       margin-bottom: 8px;
     }
 
+    .visually-hidden {
+      position: absolute !important;
+      width: 1px !important;
+      height: 1px !important;
+      padding: 0 !important;
+      margin: -1px !important;
+      overflow: hidden !important;
+      clip: rect(0, 0, 0, 0) !important;
+      white-space: nowrap !important;
+      border: 0 !important;
+    }
+
+    .required {
+      color: #dc3545;
+      font-weight: bold;
+    }
+
+    .help-text {
+      font-size: 0.875rem;
+      color: #6c757d;
+      margin-top: 4px;
+      line-height: 1.4;
+      min-height: 1.2em;
+      /* Ensure consistent height */
+    }
+
+    .form-instructions {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #e7f3ff;
+      border: 1px solid #b3d9ff;
+      border-radius: 6px;
+      color: #0c5460;
+    }
+
+    .button-help {
+      margin-top: 15px;
+      display: none;
+      /* Hidden by default, shown on focus */
+    }
+
+    .button-help .help-text {
+      margin-bottom: 8px;
+    }
+
+    button:focus+.button-help,
+    button:focus~.button-help {
+      display: block;
+    }
+
+    /* Improved focus indicators */
+    input:focus,
+    button:focus {
+      outline: 2px solid #007bff;
+      outline-offset: 2px;
+    }
+
+    /* Better disabled state */
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    button:disabled:focus {
+      outline: 2px solid #6c757d;
+    }
+
+    /* Definition list styling */
+    dl {
+      margin: 0;
+    }
+
+    dt {
+      font-weight: 600;
+      color: #333;
+      margin-top: 12px;
+      margin-bottom: 4px;
+    }
+
+    dt:first-child {
+      margin-top: 0;
+    }
+
+    dd {
+      margin-left: 0;
+      margin-bottom: 8px;
+      color: #666;
+      line-height: 1.5;
+    }
+
     .toast {
       position: fixed;
       top: 20px;
@@ -321,6 +413,57 @@
 
     .toast.show {
       transform: translateX(0);
+    }
+
+    .toast.error {
+      background-color: #dc3545;
+    }
+
+    .error-message {
+      color: #dc3545;
+      font-size: 0.875rem;
+      margin-top: 4px;
+      font-weight: 500;
+      min-height: 1.2em;
+      /* Reserve space to prevent layout shift */
+      line-height: 1.2;
+      transition: opacity 0.2s ease;
+    }
+
+    .error-message:empty {
+      opacity: 0;
+      /* Hide when empty but keep space */
+    }
+
+    .error-message:not(:empty) {
+      opacity: 1;
+    }
+
+    input[aria-invalid="true"] {
+      border-color: #dc3545;
+      box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.25);
+    }
+
+    /* High contrast mode support */
+    @media (prefers-contrast: high) {
+      input[type="text"] {
+        border-width: 3px;
+      }
+
+      button {
+        border: 2px solid currentColor;
+      }
+    }
+
+    /* Reduced motion support */
+    @media (prefers-reduced-motion: reduce) {
+      .toast {
+        transition: none;
+      }
+
+      button {
+        transition: none;
+      }
     }
 
     @media (max-width: 600px) {
@@ -353,71 +496,108 @@
     </div>
   </header>
 
-  <main id="main-content"></main>
-  <div class="container">
-    <section class="calculator-section" aria-label="Calculadora Cutter-Sanborn">
-      <div class="form-group">
-        <div class="input-group">
-          <label for="sobrenome">Sobrenome do Autor</label>
-          <input type="text" id="sobrenome" placeholder="Digite o sobrenome" aria-describedby="sobrenome-help">
+  <main id="main-content">
+    <div class="container">
+      <section class="calculator-section" aria-labelledby="calculator-heading">
+        <h2 id="calculator-heading" class="visually-hidden">Calculadora de Números Cutter-Sanborn</h2>
+
+        <form id="cutter-form" novalidate aria-live="polite" aria-describedby="form-instructions">
+          <div class="form-group" role="group" aria-labelledby="input-group-label">
+            <div id="input-group-label" class="visually-hidden">Dados do autor para cálculo</div>
+
+            <div class="input-group">
+              <label for="sobrenome">
+                Sobrenome do Autor <span class="required" aria-label="campo obrigatório">*</span>
+              </label>
+              <input type="text" id="sobrenome" name="sobrenome" placeholder="Digite o sobrenome"
+                aria-describedby="sobrenome-help" aria-required="true" autocomplete="family-name" spellcheck="false">
+              <div id="sobrenome-help" class="help-text">
+                Digite o sobrenome do autor (ex: "Lentino", "Prado")
+              </div>
+              <div id="sobrenome-error" class="error-message" role="alert" aria-live="polite"></div>
+            </div>
+
+            <div class="input-group">
+              <label for="nome">Nome do Autor</label>
+              <input type="text" id="nome" name="nome" placeholder="Digite o nome" aria-describedby="nome-help"
+                autocomplete="given-name" spellcheck="false">
+              <div id="nome-help" class="help-text">
+                Digite o nome do autor (ex: "Noemia", "Heloisa") - opcional
+              </div>
+              <div id="nome-error" class="error-message" role="alert" aria-live="polite"></div>
+            </div>
+
+            <div class="input-group">
+              <label for="numero">Número Cutter-Sanborn</label>
+              <input type="text" id="numero" name="numero" placeholder="Resultado aparecerá aqui" readonly
+                aria-live="polite" aria-describedby="numero-help">
+              <div id="numero-help" class="help-text">
+                O número será calculado automaticamente conforme você digita
+              </div>
+              <div id="numero-error" class="error-message" role="alert" aria-live="polite"></div>
+            </div>
+          </div>
+
+          <div class="button-group" role="group" aria-label="Ações da calculadora">
+            <button type="button" class="btn-clear" onclick="limparCampos()" aria-describedby="clear-help">
+              <span aria-hidden="true">🧹</span> Limpar campos
+            </button>
+            <button type="button" class="btn-copy" id="copyBtn" onclick="copiarResultado()" disabled
+              aria-describedby="copy-help">
+              <span aria-hidden="true">📋</span> Copiar resultado
+            </button>
+          </div>
+
+          <div class="button-help">
+            <div id="clear-help" class="help-text">Limpa todos os campos e retorna o foco para o primeiro campo</div>
+            <div id="copy-help" class="help-text">Copia o número calculado para a área de transferência</div>
+          </div>
+        </form>
+
+        <div id="form-instructions" class="form-instructions">
+          <p>Preencha pelo menos o sobrenome para calcular o número Cutter-Sanborn. O resultado é atualizado em tempo
+            real.</p>
         </div>
+      </section>
 
-        <div class="input-group">
-          <label for="nome">Nome do Autor</label>
-          <input type="text" id="nome" placeholder="Digite o nome" aria-describedby="nome-help">
-        </div>
+      <section class="info-section" aria-labelledby="info-heading">
+        <article class="result-info">
+          <h2 id="info-heading">Como usar a Calculadora Cutter-Sanborn</h2>
+          <dl>
+            <dt>Sobrenome:</dt>
+            <dd>Digite o sobrenome do autor (ex: "Lentino", "Prado") - campo obrigatório</dd>
+            <dt>Nome:</dt>
+            <dd>Digite o nome do autor (ex: "Noemia", "Heloisa") - campo opcional</dd>
+            <dt>Número:</dt>
+            <dd>O número Cutter-Sanborn será calculado automaticamente</dd>
+          </dl>
+        </article>
 
-        <div class="input-group">
-          <label for="numero">Número Cutter-Sanborn</label>
-          <input type="text" id="numero" placeholder="Resultado aparecerá aqui" disabled aria-live="polite">
-        </div>
-      </div>
+        <article class="about-section" aria-labelledby="about-heading">
+          <h2 id="about-heading">Sobre o Sistema Cutter-Sanborn</h2>
+          <p>O sistema Cutter-Sanborn é uma ferramenta fundamental na biblioteconomia, utilizada para criar números de
+            chamada únicos que facilitam a organização e localização de materiais em bibliotecas. Desenvolvido por
+            Charles Ammi Cutter e posteriormente refinado por Kate Sanborn, este sistema permite a criação de códigos
+            alfanuméricos baseados no sobrenome e nome dos autores.</p>
 
-      <div class="button-group">
-        <button class="btn-clear" onclick="limparCampos()" aria-label="Limpar todos os campos">
-          🧹 Limpar campos
-        </button>
-        <button class="btn-copy" id="copyBtn" onclick="copiarResultado()" disabled
-          aria-label="Copiar resultado para área de transferência">
-          📋 Copiar resultado
-        </button>
-      </div>
-    </section>
+          <h3 id="characteristics-heading">Características do Sistema</h3>
+          <ul aria-labelledby="characteristics-heading">
+            <li>Geração automática de números únicos</li>
+            <li>Baseado em algoritmos de catalogação bibliotecária</li>
+            <li>Amplamente utilizado em bibliotecas acadêmicas e públicas</li>
+            <li>Compatível com sistemas de classificação como Dewey</li>
+          </ul>
 
-    <section class="info-section">
-      <article class="result-info">
-        <h2>Como usar a Calculadora Cutter-Sanborn</h2>
-        <p><strong>Sobrenome:</strong> Digite o sobrenome do autor (ex: "Lentino", "Prado")</p>
-        <p><strong>Nome:</strong> Digite o nome do autor (ex: "Noemia", "Heloisa")</p>
-        <p><strong>Número:</strong> O número Cutter-Sanborn será calculado automaticamente</p>
-        <p>O resultado é atualizado em tempo real conforme você digita.</p>
-      </article>
-
-      <article class="about-section">
-        <h2>Sobre o Sistema Cutter-Sanborn</h2>
-        <p>O sistema Cutter-Sanborn é uma ferramenta fundamental na biblioteconomia, utilizada para criar números de
-          chamada únicos que facilitam a organização e localização de materiais em bibliotecas. Desenvolvido por
-          Charles Ammi Cutter e posteriormente refinado por Kate Sanborn, este sistema permite a criação de códigos
-          alfanuméricos baseados no sobrenome e nome dos autores.</p>
-
-        <h3>Características do Sistema</h3>
-        <ul>
-          <li>Geração automática de números únicos</li>
-          <li>Baseado em algoritmos de catalogação bibliotecária</li>
-          <li>Amplamente utilizado em bibliotecas acadêmicas e públicas</li>
-          <li>Compatível com sistemas de classificação como Dewey</li>
-        </ul>
-
-        <h3>Vantagens da Calculadora Online</h3>
-        <ul>
-          <li>Cálculo instantâneo e preciso</li>
-          <li>Interface intuitiva e responsiva</li>
-          <li>Gratuita e acessível via navegador</li>
-          <li>Ideal para bibliotecários e estudantes de biblioteconomia</li>
-        </ul>
-      </article>
-    </section>
-  </div>
+          <h3 id="advantages-heading">Vantagens da Calculadora Online</h3>
+          <ul aria-labelledby="advantages-heading">
+            <li>Cálculo instantâneo e preciso</li>
+            <li>Interface intuitiva e responsiva</li>
+            <li>Gratuita e acessível via navegador</li>
+            <li>Ideal para bibliotecários e estudantes de biblioteconomia</li>
+          </ul>
+        </article>
+      </section>
+    </div>
   </main>
 
   <footer>
@@ -428,8 +608,8 @@
     </div>
   </footer>
 
-  <div class="toast" id="toast">
-    Resultado copiado para a área de transferência!
+  <div class="toast" id="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <span id="toast-message">Resultado copiado para a área de transferência!</span>
   </div>
 
   <!-- Preload critical resources -->
@@ -464,19 +644,50 @@
         const sobrenome = sobrenomeInput.value.trim();
         const nome = nomeInput.value.trim();
 
+        // Clear previous error states
+        sobrenomeInput.removeAttribute('aria-invalid');
+        sobrenomeInput.removeAttribute('aria-describedby');
+
         if (sobrenome) {
           try {
-            const resultado = cutterSanbornTable.callNumber(sobrenome.trim().toLowerCase(), nome.trim().toLowerCase() || " ");
+            const resultado = cutterSanbornTable.callNumber(sobrenome.toLowerCase(), nome.toLowerCase() || " ");
             numeroInput.value = resultado;
             copyBtn.disabled = false;
+            copyBtn.setAttribute('aria-describedby', 'copy-help');
+
+            // Announce result to screen readers
+            numeroInput.setAttribute('aria-label', `Número Cutter-Sanborn calculado: ${resultado}`);
           } catch (error) {
             numeroInput.value = 'Erro no cálculo';
+            numeroInput.setAttribute('aria-label', 'Erro no cálculo do número Cutter-Sanborn');
             copyBtn.disabled = true;
+            copyBtn.removeAttribute('aria-describedby');
+
+            // Announce error
+            announceToScreenReader('Erro no cálculo. Verifique os dados inseridos.');
           }
         } else {
           numeroInput.value = '';
+          numeroInput.setAttribute('aria-label', 'Número Cutter-Sanborn - aguardando dados');
           copyBtn.disabled = true;
+          copyBtn.removeAttribute('aria-describedby');
         }
+      }
+
+      // Announce messages to screen readers
+      function announceToScreenReader(message) {
+        const announcement = document.createElement('div');
+        announcement.setAttribute('aria-live', 'assertive');
+        announcement.setAttribute('aria-atomic', 'true');
+        announcement.className = 'visually-hidden';
+        announcement.textContent = message;
+
+        document.body.appendChild(announcement);
+
+        // Remove after announcement
+        setTimeout(() => {
+          document.body.removeChild(announcement);
+        }, 1000);
       }
 
       // Clear all fields
@@ -484,7 +695,16 @@
         sobrenomeInput.value = '';
         nomeInput.value = '';
         numeroInput.value = '';
+
+        // Reset ARIA attributes
+        sobrenomeInput.removeAttribute('aria-invalid');
+        numeroInput.setAttribute('aria-label', 'Número Cutter-Sanborn - aguardando dados');
+
         copyBtn.disabled = true;
+        copyBtn.removeAttribute('aria-describedby');
+
+        // Announce action and focus
+        announceToScreenReader('Campos limpos');
         sobrenomeInput.focus();
       }
 
@@ -494,34 +714,82 @@
         if (resultado && resultado !== 'Erro no cálculo') {
           try {
             await navigator.clipboard.writeText(resultado);
-            mostrarToast();
+            mostrarToast('Resultado copiado para a área de transferência!');
+            announceToScreenReader(`Número ${resultado} copiado para a área de transferência`);
           } catch (error) {
             // Fallback for older browsers
-            const textArea = document.createElement('textarea');
-            textArea.value = resultado;
-            document.body.appendChild(textArea);
-            textArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textArea);
-            mostrarToast();
+            try {
+              const textArea = document.createElement('textarea');
+              textArea.value = resultado;
+              textArea.style.position = 'fixed';
+              textArea.style.left = '-999999px';
+              textArea.setAttribute('aria-hidden', 'true');
+              document.body.appendChild(textArea);
+              textArea.select();
+              document.execCommand('copy');
+              document.body.removeChild(textArea);
+              mostrarToast('Resultado copiado para a área de transferência!');
+              announceToScreenReader(`Número ${resultado} copiado para a área de transferência`);
+            } catch (fallbackError) {
+              mostrarToast('Erro ao copiar. Tente selecionar o texto manualmente.', 'error');
+              announceToScreenReader('Erro ao copiar resultado');
+            }
           }
         }
       }
 
       // Show toast notification
-      function mostrarToast() {
+      function mostrarToast(message, type = 'success') {
+        const toastMessage = document.getElementById('toast-message');
+        toastMessage.textContent = message;
+
+        // Update toast styling based on type
+        toast.className = `toast ${type}`;
         toast.classList.add('show');
+
+        // Auto-hide after 3 seconds
         setTimeout(() => {
           toast.classList.remove('show');
         }, 3000);
       }
 
       // Add event listeners for real-time calculation
-      sobrenomeInput.addEventListener('input', calcularNumero);
+      sobrenomeInput.addEventListener('input', () => {
+        validateForm();
+        calcularNumero();
+      });
+
       nomeInput.addEventListener('input', calcularNumero);
+
+      // Add blur validation for required field
+      sobrenomeInput.addEventListener('blur', validateForm);
 
       // Focus on first input when page loads
       sobrenomeInput.focus();
+
+      // Form validation
+      function validateForm() {
+        const sobrenome = sobrenomeInput.value.trim();
+        const errorElement = document.getElementById('sobrenome-error');
+
+        if (!sobrenome) {
+          sobrenomeInput.setAttribute('aria-invalid', 'true');
+          sobrenomeInput.setAttribute('aria-describedby', 'sobrenome-help sobrenome-error');
+
+          // Update existing error container (no layout shift)
+          errorElement.textContent = 'Sobrenome é obrigatório para calcular o número Cutter-Sanborn';
+
+          return false;
+        } else {
+          sobrenomeInput.removeAttribute('aria-invalid');
+          sobrenomeInput.setAttribute('aria-describedby', 'sobrenome-help');
+
+          // Clear error message (space remains reserved)
+          errorElement.textContent = '';
+
+          return true;
+        }
+      }
 
       // Add keyboard shortcuts
       document.addEventListener('keydown', (e) => {
@@ -529,12 +797,27 @@
         if ((e.ctrlKey || e.metaKey) && e.key === 'l') {
           e.preventDefault();
           limparCampos();
+          announceToScreenReader('Atalho de teclado: campos limpos');
         }
 
         // Ctrl/Cmd + C when focused on result to copy
         if ((e.ctrlKey || e.metaKey) && e.key === 'c' && document.activeElement === numeroInput) {
           e.preventDefault();
           copiarResultado();
+        }
+
+        // Escape to clear fields
+        if (e.key === 'Escape') {
+          limparCampos();
+        }
+      });
+
+      // Add form submission handling
+      const form = document.getElementById('cutter-form');
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (validateForm()) {
+          calcularNumero();
         }
       });
 
