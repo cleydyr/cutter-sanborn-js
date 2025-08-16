@@ -1,4 +1,5 @@
 dist/tsconfig.tsbuildinfo
+*.tsbuildinfo
 jest.config.js
 cutter.csv
 src/*

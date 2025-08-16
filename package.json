@@ -2,6 +2,8 @@
   "name": "cutter-sanborn-js",
   "version": "1.0.1-SNAPSHOT",
   "description": "A library to calculate the call number based on the Cutter-Sanborn table",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -9,6 +11,11 @@
       "types": "./dist/index.d.ts"
     }
   },
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "LICENSE"
+  ],
   "directories": {
     "test": "test"
   },
@@ -18,7 +25,9 @@
     "parse": "ts-node prebuild/parser.ts",
     "transform": "npm run scrap && npm run parse && ts-node transform.ts",
     "build": "npm run transform && tsc",
-    "prepublish": "npm run build && npm test"
+    "prepublishOnly": "npm run build && npm test",
+    "clean": "rm -rf dist",
+    "prebuild": "npm run clean"
   },
   "keywords": [
     "cutter",
@@ -47,7 +56,5 @@
   "repository": {
     "type": "git",
     "url": "git@github.com:cleydyr/cutter-sanborn-js.git"
-  },
-  "module": "esnext",
-  "target": "esnext"
+  }
 }
