@@ -30,7 +30,7 @@
     "prepublishOnly": "npm run build && npm run build:cdn && npm test",
     "clean": "rm -rf dist",
     "prebuild": "npm run clean",
-    "serve": "node serve.js",
+    "serve": "node serve.js"
   },
   "keywords": [
     "cutter",
