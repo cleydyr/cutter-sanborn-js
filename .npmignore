@@ -1,5 +1,3 @@
-dist/tsconfig.tsbuildinfo
-dist/cutter-sanborn.min.js
 *.tsbuildinfo
 jest.config.js
 cutter.csv
