@@ -56,6 +56,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:cleydyr/cutter-sanborn-js.git"
+    "url": "git+ssh://git@github.com/cleydyr/cutter-sanborn-js.git"
   }
 }
