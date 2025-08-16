@@ -4,12 +4,103 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calculadora Cutter-Sanborn</title>
+
+  <!-- Primary Meta Tags -->
+  <title>Calculadora Cutter-Sanborn Online - Sistema de Numeração para Bibliotecas</title>
+  <meta name="title" content="Calculadora Cutter-Sanborn Online - Sistema de Numeração para Bibliotecas">
+  <meta name="description"
+    content="Calculadora online gratuita para gerar números Cutter-Sanborn. Ferramenta essencial para bibliotecários e profissionais da informação. Cálculo automático em tempo real.">
+  <meta name="keywords"
+    content="cutter sanborn, calculadora, biblioteca, catalogação, número de chamada, call number, biblioteconomia, classificação, dewey">
+  <meta name="author" content="Cleydyr de Albuquerque">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="Portuguese">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cleydyr.github.io/cutter-sanborn-js/">
+  <meta property="og:title" content="Calculadora Cutter-Sanborn Online - Sistema de Numeração para Bibliotecas">
+  <meta property="og:description"
+    content="Calculadora online gratuita para gerar números Cutter-Sanborn. Ferramenta essencial para bibliotecários e profissionais da informação.">
+  <meta property="og:image" content="https://cleydyr.github.io/cutter-sanborn-js/og-image.png">
+  <meta property="og:site_name" content="Calculadora Cutter-Sanborn">
+  <meta property="og:locale" content="pt_BR">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://cleydyr.github.io/cutter-sanborn-js/">
+  <meta property="twitter:title" content="Calculadora Cutter-Sanborn Online">
+  <meta property="twitter:description"
+    content="Calculadora online gratuita para gerar números Cutter-Sanborn. Ferramenta essencial para bibliotecários.">
+  <meta property="twitter:image" content="https://cleydyr.github.io/cutter-sanborn-js/og-image.png">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://cleydyr.github.io/cutter-sanborn-js/">
+
+  <!-- Mobile optimization -->
+  <meta name="theme-color" content="#007bff">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Cutter-Sanborn">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+  <link rel="apple-touch-icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Calculadora Cutter-Sanborn",
+    "description": "Calculadora online gratuita para gerar números Cutter-Sanborn utilizados em sistemas de classificação bibliotecária",
+    "url": "https://cleydyr.github.io/cutter-sanborn-js/",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web Browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "BRL"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Cleydyr de Albuquerque",
+      "url": "https://github.com/cleydyr"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Cleydyr de Albuquerque"
+    },
+    "inLanguage": "pt-BR",
+    "isAccessibleForFree": true,
+    "browserRequirements": "Requires JavaScript",
+    "softwareVersion": "1.1.0"
+  }
+  </script>
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 6px;
+      background: #000;
+      color: #fff;
+      padding: 8px;
+      text-decoration: none;
+      border-radius: 4px;
+      z-index: 1000;
+    }
+
+    .skip-link:focus {
+      top: 6px;
     }
 
     body {
@@ -22,18 +113,97 @@
     .container {
       max-width: 800px;
       margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    header .container {
       background: white;
       border-radius: 12px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       padding: 40px;
+      margin-bottom: 30px;
+    }
+
+    main .container {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      margin-bottom: 30px;
     }
 
     h1 {
       text-align: center;
       color: #333;
-      margin-bottom: 40px;
-      font-size: 2rem;
+      margin-bottom: 10px;
+      font-size: 2.2rem;
       font-weight: 600;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #666;
+      font-size: 1.1rem;
+      margin-bottom: 0;
+    }
+
+    h2 {
+      color: #333;
+      margin-bottom: 15px;
+      font-size: 1.4rem;
+      font-weight: 600;
+    }
+
+    h3 {
+      color: #444;
+      margin: 20px 0 10px 0;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .calculator-section {
+      margin-bottom: 40px;
+    }
+
+    .info-section {
+      border-top: 1px solid #e1e5e9;
+      padding-top: 40px;
+    }
+
+    .about-section {
+      margin-top: 30px;
+      padding: 20px;
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      border-left: 4px solid #28a745;
+    }
+
+    .about-section ul {
+      margin: 10px 0;
+      padding-left: 20px;
+    }
+
+    .about-section li {
+      margin-bottom: 5px;
+      color: #666;
+      line-height: 1.5;
+    }
+
+    footer {
+      background-color: #333;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    footer a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
     }
 
     .form-group {
@@ -122,17 +292,11 @@
     }
 
     .result-info {
-      margin-top: 30px;
       padding: 20px;
       background-color: #f8f9fa;
       border-radius: 8px;
       border-left: 4px solid #007bff;
-    }
-
-    .result-info h3 {
-      color: #333;
-      margin-bottom: 10px;
-      font-size: 1.1rem;
+      margin-bottom: 30px;
     }
 
     .result-info p {
@@ -179,142 +343,212 @@
 </head>
 
 <body>
+  <!-- Skip navigation for accessibility -->
+  <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
+
+  <header>
+    <div class="container">
+      <h1>Calculadora Cutter-Sanborn Online</h1>
+      <p class="subtitle">Sistema de numeração para catalogação bibliotecária</p>
+    </div>
+  </header>
+
+  <main id="main-content"></main>
   <div class="container">
-    <h1>Calculadora Cutter-Sanborn</h1>
+    <section class="calculator-section" aria-label="Calculadora Cutter-Sanborn">
+      <div class="form-group">
+        <div class="input-group">
+          <label for="sobrenome">Sobrenome do Autor</label>
+          <input type="text" id="sobrenome" placeholder="Digite o sobrenome" aria-describedby="sobrenome-help">
+        </div>
 
-    <div class="form-group">
-      <div class="input-group">
-        <label for="sobrenome">Sobrenome</label>
-        <input type="text" id="sobrenome" placeholder="Digite o sobrenome">
+        <div class="input-group">
+          <label for="nome">Nome do Autor</label>
+          <input type="text" id="nome" placeholder="Digite o nome" aria-describedby="nome-help">
+        </div>
+
+        <div class="input-group">
+          <label for="numero">Número Cutter-Sanborn</label>
+          <input type="text" id="numero" placeholder="Resultado aparecerá aqui" disabled aria-live="polite">
+        </div>
       </div>
 
-      <div class="input-group">
-        <label for="nome">Nome</label>
-        <input type="text" id="nome" placeholder="Digite o nome">
+      <div class="button-group">
+        <button class="btn-clear" onclick="limparCampos()" aria-label="Limpar todos os campos">
+          🧹 Limpar campos
+        </button>
+        <button class="btn-copy" id="copyBtn" onclick="copiarResultado()" disabled
+          aria-label="Copiar resultado para área de transferência">
+          📋 Copiar resultado
+        </button>
       </div>
+    </section>
 
-      <div class="input-group">
-        <label for="numero">Número</label>
-        <input type="text" id="numero" placeholder="Resultado aparecerá aqui" disabled>
-      </div>
-    </div>
+    <section class="info-section">
+      <article class="result-info">
+        <h2>Como usar a Calculadora Cutter-Sanborn</h2>
+        <p><strong>Sobrenome:</strong> Digite o sobrenome do autor (ex: "Lentino", "Prado")</p>
+        <p><strong>Nome:</strong> Digite o nome do autor (ex: "Noemia", "Heloisa")</p>
+        <p><strong>Número:</strong> O número Cutter-Sanborn será calculado automaticamente</p>
+        <p>O resultado é atualizado em tempo real conforme você digita.</p>
+      </article>
 
-    <div class="button-group">
-      <button class="btn-clear" onclick="limparCampos()">
-        🧹 Limpar campos
-      </button>
-      <button class="btn-copy" id="copyBtn" onclick="copiarResultado()" disabled>
-        📋 Copiar resultado
-      </button>
-    </div>
+      <article class="about-section">
+        <h2>Sobre o Sistema Cutter-Sanborn</h2>
+        <p>O sistema Cutter-Sanborn é uma ferramenta fundamental na biblioteconomia, utilizada para criar números de
+          chamada únicos que facilitam a organização e localização de materiais em bibliotecas. Desenvolvido por
+          Charles Ammi Cutter e posteriormente refinado por Kate Sanborn, este sistema permite a criação de códigos
+          alfanuméricos baseados no sobrenome e nome dos autores.</p>
 
-    <div class="result-info">
-      <h3>Como usar:</h3>
-      <p><strong>Sobrenome:</strong> Digite o sobrenome do autor (ex: "Lentino", "Prado")</p>
-      <p><strong>Nome:</strong> Digite o nome do autor (ex: "Noemia", "Heloisa")</p>
-      <p><strong>Número:</strong> O número Cutter-Sanborn será calculado automaticamente</p>
-      <p>O resultado é atualizado em tempo real conforme você digita.</p>
-    </div>
+        <h3>Características do Sistema</h3>
+        <ul>
+          <li>Geração automática de números únicos</li>
+          <li>Baseado em algoritmos de catalogação bibliotecária</li>
+          <li>Amplamente utilizado em bibliotecas acadêmicas e públicas</li>
+          <li>Compatível com sistemas de classificação como Dewey</li>
+        </ul>
+
+        <h3>Vantagens da Calculadora Online</h3>
+        <ul>
+          <li>Cálculo instantâneo e preciso</li>
+          <li>Interface intuitiva e responsiva</li>
+          <li>Gratuita e acessível via navegador</li>
+          <li>Ideal para bibliotecários e estudantes de biblioteconomia</li>
+        </ul>
+      </article>
+    </section>
   </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2024 <a href="https://github.com/cleydyr" target="_blank" rel="noopener">Cleydyr de Albuquerque</a>.
+        Código fonte disponível no <a href="https://github.com/cleydyr/cutter-sanborn-js" target="_blank"
+          rel="noopener">GitHub</a>.</p>
+    </div>
+  </footer>
 
   <div class="toast" id="toast">
     Resultado copiado para a área de transferência!
   </div>
 
+  <!-- Preload critical resources -->
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="dns-prefetch" href="https://unpkg.com">
+
   <!-- Load the CDN bundle from unpkg -->
-  <script src="https://unpkg.com/cutter-sanborn-js/dist/cutter-sanborn.min.js"></script>
+  <script src="https://unpkg.com/cutter-sanborn-js/dist/cutter-sanborn.min.js" defer></script>
 
   <script>
-    // Initialize the Cutter-Sanborn table
-    const cutterSanbornTable = CutterSanborn.CutterSanbornTableFactory.createTable();
+    // Wait for both DOM and external script to be ready
+    function initializeApp() {
+      // Check if the library is loaded
+      if (typeof CutterSanborn === 'undefined') {
+        // If not loaded yet, wait a bit and try again
+        setTimeout(initializeApp, 50);
+        return;
+      }
 
-    // Get DOM elements
-    const sobrenomeInput = document.getElementById('sobrenome');
-    const nomeInput = document.getElementById('nome');
-    const numeroInput = document.getElementById('numero');
-    const copyBtn = document.getElementById('copyBtn');
-    const toast = document.getElementById('toast');
+      // Initialize the Cutter-Sanborn table
+      const cutterSanbornTable = CutterSanborn.CutterSanbornTableFactory.createTable();
 
-    // Calculate and update result
-    function calcularNumero() {
-      const sobrenome = sobrenomeInput.value.trim();
-      const nome = nomeInput.value.trim();
+      // Get DOM elements
+      const sobrenomeInput = document.getElementById('sobrenome');
+      const nomeInput = document.getElementById('nome');
+      const numeroInput = document.getElementById('numero');
+      const copyBtn = document.getElementById('copyBtn');
+      const toast = document.getElementById('toast');
 
-      if (sobrenome && nome) {
-        try {
-          const resultado = cutterSanbornTable.callNumber(sobrenome, nome);
-          numeroInput.value = resultado;
-          copyBtn.disabled = false;
-        } catch (error) {
-          numeroInput.value = 'Erro no cálculo';
+      // Calculate and update result
+      function calcularNumero() {
+        const sobrenome = sobrenomeInput.value.trim();
+        const nome = nomeInput.value.trim();
+
+        if (sobrenome && nome) {
+          try {
+            const resultado = cutterSanbornTable.callNumber(sobrenome, nome);
+            numeroInput.value = resultado;
+            copyBtn.disabled = false;
+          } catch (error) {
+            numeroInput.value = 'Erro no cálculo';
+            copyBtn.disabled = true;
+          }
+        } else {
+          numeroInput.value = '';
           copyBtn.disabled = true;
         }
-      } else {
+      }
+
+      // Clear all fields
+      function limparCampos() {
+        sobrenomeInput.value = '';
+        nomeInput.value = '';
         numeroInput.value = '';
         copyBtn.disabled = true;
+        sobrenomeInput.focus();
       }
-    }
 
-    // Clear all fields
-    function limparCampos() {
-      sobrenomeInput.value = '';
-      nomeInput.value = '';
-      numeroInput.value = '';
-      copyBtn.disabled = true;
-      sobrenomeInput.focus();
-    }
-
-    // Copy result to clipboard
-    async function copiarResultado() {
-      const resultado = numeroInput.value;
-      if (resultado && resultado !== 'Erro no cálculo') {
-        try {
-          await navigator.clipboard.writeText(resultado);
-          mostrarToast();
-        } catch (error) {
-          // Fallback for older browsers
-          const textArea = document.createElement('textarea');
-          textArea.value = resultado;
-          document.body.appendChild(textArea);
-          textArea.select();
-          document.execCommand('copy');
-          document.body.removeChild(textArea);
-          mostrarToast();
+      // Copy result to clipboard
+      async function copiarResultado() {
+        const resultado = numeroInput.value;
+        if (resultado && resultado !== 'Erro no cálculo') {
+          try {
+            await navigator.clipboard.writeText(resultado);
+            mostrarToast();
+          } catch (error) {
+            // Fallback for older browsers
+            const textArea = document.createElement('textarea');
+            textArea.value = resultado;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            mostrarToast();
+          }
         }
       }
-    }
 
-    // Show toast notification
-    function mostrarToast() {
-      toast.classList.add('show');
-      setTimeout(() => {
-        toast.classList.remove('show');
-      }, 3000);
-    }
+      // Show toast notification
+      function mostrarToast() {
+        toast.classList.add('show');
+        setTimeout(() => {
+          toast.classList.remove('show');
+        }, 3000);
+      }
 
-    // Add event listeners for real-time calculation
-    sobrenomeInput.addEventListener('input', calcularNumero);
-    nomeInput.addEventListener('input', calcularNumero);
+      // Add event listeners for real-time calculation
+      sobrenomeInput.addEventListener('input', calcularNumero);
+      nomeInput.addEventListener('input', calcularNumero);
 
-    // Focus on first input when page loads
-    window.addEventListener('load', () => {
+      // Focus on first input when page loads
       sobrenomeInput.focus();
-    });
 
-    // Add keyboard shortcuts
-    document.addEventListener('keydown', (e) => {
-      // Ctrl/Cmd + L to clear fields
-      if ((e.ctrlKey || e.metaKey) && e.key === 'l') {
-        e.preventDefault();
-        limparCampos();
-      }
+      // Add keyboard shortcuts
+      document.addEventListener('keydown', (e) => {
+        // Ctrl/Cmd + L to clear fields
+        if ((e.ctrlKey || e.metaKey) && e.key === 'l') {
+          e.preventDefault();
+          limparCampos();
+        }
 
-      // Ctrl/Cmd + C when focused on result to copy
-      if ((e.ctrlKey || e.metaKey) && e.key === 'c' && document.activeElement === numeroInput) {
-        e.preventDefault();
-        copiarResultado();
-      }
-    });
+        // Ctrl/Cmd + C when focused on result to copy
+        if ((e.ctrlKey || e.metaKey) && e.key === 'c' && document.activeElement === numeroInput) {
+          e.preventDefault();
+          copiarResultado();
+        }
+      });
+
+      // Make functions globally available for onclick handlers
+      window.limparCampos = limparCampos;
+      window.copiarResultado = copiarResultado;
+    }
+
+    // Start initialization when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initializeApp);
+    } else {
+      initializeApp();
+    }
   </script>
 </body>
 

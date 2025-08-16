@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://cleydyr.github.io/cutter-sanborn-js/sitemap.xml
