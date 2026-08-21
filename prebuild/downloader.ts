@@ -23,8 +23,6 @@ export class PageDownloader {
   }
 
   async downloadPage(url: string, filename?: string): Promise<DownloadResult> {
-    this.destinationDir;
-
     try {
       const response = await fetch(url);
 
