@@ -56,6 +56,9 @@
   "dependencies": {
     "functional-red-black-tree": "^1.0.1"
   },
+  "overrides": {
+    "picomatch@2": "2.3.2"
+  },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/cleydyr/cutter-sanborn-js.git"
